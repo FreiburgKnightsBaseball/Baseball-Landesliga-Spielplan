@@ -169,57 +169,74 @@ margin-bottom: 10px; padding: 16px 20px; display: flex; align-items: center; gap
 .header-text h1 { font-size: 30px; }
 
 ```
-/* Spielplan-Karte: sauberes 3-Spalten-Layout, kein Umbruch */
+/* Spielplan: Matchup groß in der Mitte, darunter Datum + Info nebeneinander */
 .game-card {
-  flex-wrap: nowrap;
-  gap: 10px;
-  padding: 12px 14px;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 14px 16px;
 }
 
+/* Zeile 1: Datum links, Badge+Zeit rechts */
 .date-col {
-  flex: 0 0 44px;
-  border-right: 1px solid var(--border);
-  padding-right: 10px;
-  text-align: center;
-}
-.date-col .day { font-size: 22px; }
-.date-col .mon { font-size: 9px; }
-.date-col .dow { font-size: 9px; }
-
-.matchup {
   flex: 1;
-  gap: 6px;
-  justify-content: center;
+  border-right: none;
+  border-bottom: 1px solid var(--border);
+  padding-right: 0;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-.team { width: auto; }
-.team-name { font-size: 11px; letter-spacing: 0; }
-.vs-sep { font-size: 10px; flex: 0 0 16px; }
+.date-col .day { font-size: 26px; }
+.date-col .mon, .date-col .dow { font-size: 11px; margin-top: 0; }
 
 .info-col {
-  flex: 0 0 auto;
+  flex: unset;
+  width: auto;
   text-align: right;
-  min-width: 70px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
 }
-.badge { font-size: 9px; padding: 2px 7px; margin-bottom: 3px; }
-.game-time { font-size: 12px; }
-.game-venue { font-size: 9px; }
+.game-time { font-size: 15px; }
+.game-venue { font-size: 11px; }
+.badge { font-size: 11px; padding: 4px 12px; margin-bottom: 4px; }
 
-.filter-btn { font-size: 12px; padding: 6px 12px; }
+/* Zeile 2: Matchup zentriert über die volle Breite */
+.matchup {
+  order: 3;
+  width: 100%;
+  flex: unset;
+  justify-content: center;
+  gap: 20px;
+  padding-top: 2px;
+}
+.team { width: auto; text-align: center; }
+.team-name { font-size: 14px; letter-spacing: 1px; }
+.vs-sep { font-size: 12px; }
+
+.filter-btn { font-size: 13px; padding: 8px 16px; }
 .stat-card .val { font-size: 28px; }
-.stat-card .lbl { font-size: 11px; }
+.stat-card .lbl { font-size: 12px; }
 
 /* Ergebnisse */
-.result-card { gap: 10px; padding: 12px 12px; }
-.result-date { flex: 0 0 42px; padding-right: 10px; }
-.result-date .day { font-size: 20px; }
-.result-date .mon { font-size: 9px; }
-.result-teams { font-size: 13px; }
-.result-meta  { font-size: 10px; }
-.score-display { font-size: 22px; }
-.score-display.pending { font-size: 18px; }
-.result-badge { font-size: 9px; padding: 2px 8px; }
+.result-card { gap: 12px; padding: 14px 14px; }
+.result-date { flex: 0 0 46px; padding-right: 12px; }
+.result-date .day { font-size: 22px; }
+.result-date .mon { font-size: 10px; }
+.result-teams { font-size: 14px; }
+.result-meta  { font-size: 11px; }
+.score-display { font-size: 24px; }
+.score-display.pending { font-size: 19px; }
+.result-badge { font-size: 10px; padding: 3px 9px; }
 
+/* Banner */
 .record-display { margin-left: 0; }
 .rec-item .rv { font-size: 34px; }
 .rec-item .rl { font-size: 11px; }
@@ -280,6 +297,7 @@ margin-bottom: 10px; padding: 16px 20px; display: flex; align-items: center; gap
     </div>
   </div>
 
+
   <div class="game-card" data-type="home">
     <div class="date-col"><div class="day">26</div><div class="mon">APR</div><div class="dow">So.</div></div>
     <div class="matchup">
@@ -293,25 +311,25 @@ margin-bottom: 10px; padding: 16px 20px; display: flex; align-items: center; gap
       <div class="game-venue">Robert-Ruh-Weg<br>Freiburg-Weingarten</div>
     </div>
   </div>
+```
 
-  <!-- Pokalspiel 01. Mai – gespielt ✓ -->
-  <div class="game-card" data-type="pokal">
-    <div class="date-col"><div class="day">01</div><div class="mon">MAI</div><div class="dow">Fr.</div></div>
-    <div class="matchup">
-      <div class="team"><div class="team-name">KNIGHTS</div></div>
-      <div class="vs-sep">VS</div>
-      <div class="team"><div class="team-name">HEIDELBERG</div></div>
-    </div>
-    <div class="info-col">
-      <div><span class="badge b-pokal">Pokal</span></div>
-      <div class="game-time">gespielt ✓</div>
-      <div class="game-venue">Robert-Ruh-Weg<br>Freiburg-Weingarten</div>
-    </div>
-  </div>
+   <div class="next-lbl" id="next-lbl">NÄCHSTES SPIEL</div>
+      <div class="game-card next" data-type="pokal">
+        <div class="date-col"><div class="day">01</div><div class="mon">MAI</div><div class="dow">Fr.</div></div>
+        <div class="matchup">
+          <div class="team"><div class="team-name">KNIGHTS</div></div>
+          <div class="vs-sep">VS</div>
+          <div class="team"><div class="team-name">HEIDELBERG</div></div>
+        </div>
+        <div class="info-col">
+          <div><span class="badge b-pokal">Pokal</span></div>
+          <div class="game-time">15:00 Uhr</div>
+          <div class="game-venue">Robert-Ruh-Weg<br>Freiburg-Weingarten</div>
+        </div>
+      </div>
 
-  <!-- Nächstes Spiel: 17. Mai -->
-  <div class="next-lbl" id="next-lbl">NÄCHSTES SPIEL</div>
-  <div class="game-card next" data-type="away">
+```
+  <div class="game-card" data-type="away">
     <div class="date-col"><div class="day">17</div><div class="mon">MAI</div><div class="dow">So.</div></div>
     <div class="matchup">
       <div class="team"><div class="team-name">MULHOUSE</div></div>
@@ -439,7 +457,7 @@ margin-bottom: 10px; padding: 16px 20px; display: flex; align-items: center; gap
     <p>LANDESLIGA BASEBALL</p>
   </div>
   <div class="record-display">
-    <div class="rec-item"><div class="rv" id="wins">3</div><div class="rl">SIEGE</div></div>
+    <div class="rec-item"><div class="rv" id="wins">2</div><div class="rl">SIEGE</div></div>
     <div class="rec-sep">·</div>
     <div class="rec-item"><div class="rv" id="losses">0</div><div class="rl">NIEDERLAGEN</div></div>
   </div>
@@ -447,6 +465,7 @@ margin-bottom: 10px; padding: 16px 20px; display: flex; align-items: center; gap
 
 <div class="section-title">GESPIELTE SPIELE</div>
 
+<!-- ✏️ SPIEL 1 -->
 <div class="result-card win">
   <div class="result-date"><div class="day">19</div><div class="mon">APR</div></div>
   <div class="result-matchup">
@@ -465,16 +484,15 @@ margin-bottom: 10px; padding: 16px 20px; display: flex; align-items: center; gap
   <div class="result-score-col"><div class="score-display win">14 : 1</div><div><span class="result-badge rb-win">Sieg</span></div></div>
 </div>
 
-<!-- ✏️ Pokalspiel 01. Mai – Sieg 16:2 -->
-<div class="result-card win">
-  <div class="result-date"><div class="day">01</div><div class="mon">MAI</div></div>
-  <div class="result-matchup"><div class="result-teams">Knights vs. Heidelberg</div><div class="result-meta">Pokal · Robert-Ruh-Weg, Freiburg</div></div>
-  <div class="result-score-col"><div class="score-display win">16 : 2</div><div><span class="result-badge rb-win">Sieg</span></div></div>
-</div>
-
-<div class="section-title" style="margin-top:28px;">AUSSTEHENDE SPIELE</div>
+  <div class="section-title" style="margin-top:28px;">AUSSTEHENDE SPIELE</div>
 
 <div class="result-card pending">
+  <div class="result-date"><div class="day">01</div><div class="mon">MAI</div></div>
+  <div class="result-matchup"><div class="result-teams">Knights vs. Heidelberg</div><div class="result-meta">Pokal · Robert-Ruh-Weg, Freiburg</div></div>
+  <div class="result-score-col"><div class="score-display pending">– : –</div><div><span class="result-badge rb-pending">Ausstehend</span></div></div>
+</div>
+
+ <div class="result-card pending">
   <div class="result-date"><div class="day">17</div><div class="mon">MAI</div></div>
   <div class="result-matchup"><div class="result-teams">Mulhouse vs. Knights</div><div class="result-meta">Auswärts · Neuenburg am Rhein</div></div>
   <div class="result-score-col"><div class="score-display pending">– : –</div><div><span class="result-badge rb-pending">Ausstehend</span></div></div>
@@ -542,13 +560,14 @@ margin-bottom: 10px; padding: 16px 20px; display: flex; align-items: center; gap
       card.style.display = (type === 'all' || card.dataset.type === type) ? 'flex' : 'none';
     });
     const lbl = document.getElementById('next-lbl');
-    if (lbl) lbl.style.display = (type === 'all' || type === 'away') ? 'block' : 'none';
+    if (lbl) lbl.style.display = (type === 'all' || type === 'home') ? 'block' : 'none';
   }
 
-  // ✏️ SIEGE und NIEDERLAGEN:
-  document.getElementById('wins').textContent = 3;
+  // ✏️ SIEGE und NIEDERLAGEN hier anpassen:
+  document.getElementById('wins').textContent = 2;
   document.getElementById('losses').textContent = 0;
 </script>
 
 </body>
 </html>
+  
